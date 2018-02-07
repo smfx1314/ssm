@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.UserMapper">
+
+	<!-- 定义resultMap -->
+	<resultMap type="com.ssm.entity.User" id="resultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<association property="dept" javaType="com.ssm.entity.Dept">
+			<id column="did" property="did"/>
+			<result column="dname" property="dname"/>
+		</association>
+	</resultMap>
+	<!-- 定义parameterMapper -->
+	<!-- <parameterMap type="com.ssm.entity.User" id="parameterMapper">
+		<parameter property="name"/>
+		<parameter property="dept.did"/>
+	</parameterMap> -->
+	<!-- 查询所有用户 -->
+	<select id="listUser" resultMap="resultMap">
+		select * from user u join dept d on u.did = d.did 
+	</select>
+	
+	<!-- 添加用戶 -->
+	<insert id="addUser" parameterType="com.ssm.entity.User">
+		insert into User(name,did) values (#{name},#{dept.did}) 
+	</insert>
+	
+	<!-- 根据id刪除用戶 -->
+	<delete id="deleteUser" parameterType="Integer">
+		delete from user where id=#{id}
+	</delete>
+	
+	<!-- 根据id查询用户 --> 
+	<select id="getById" parameterType="User" resultMap="resultMap">
+		select * from user where id=#{id}
+	</select>
+	
+	<!-- 修改用户 -->
+	 <!-- <update id="updateUser" parameterType="User" >
+        update User 
+		<set>
+			<if test="name !=null and name !='' ">
+				name=#{name}
+			</if>
+		</set>   
+		where id=#{id} 
+    </update> -->
+    
+    <update id="updateUser" parameterType="User" >
+        update User set name=#{name} where id=#{id} 
+    </update>
+</mapper>

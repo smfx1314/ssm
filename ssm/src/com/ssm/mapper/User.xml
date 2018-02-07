@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssm.mapper.UserMapper">
+	<!-- resultMap -->
+	<resultMap type="com.ssm.entity.User" id="resultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<association property="dept" javaType="com.ssm.entity.Dept">
+			<id column="did" property="did"/>
+			<result column="dname" property="dname"/>
+		</association>
+	</resultMap>
+  	<!-- 添加 -->
+    <insert id="save" parameterType="User" >
+        insert into User(name,did) values (#{name},#{dept.did})    
+    </insert>
+    
+    <delete id="deleteUser" parameterType="User" >
+        delete from User where id= #{id}   
+    </delete>
+    <!-- 条件查询 -->
+    <select id="findByName" parameterType="User" resultMap="resultMap">
+        select * from User u join dept d
+        <where>
+        	u.did = d.did and name like #{name}
+        </where>    
+    </select>
+    
+	<!-- 修改 -->
+    <update id="update" parameterType="User" >
+        update User 
+		<set>
+			<if test="name !=null and name !='' ">
+				name=#{name}
+			</if>
+		</set>   
+		where id=#{id} 
+    </update>
+    
+    <!-- 查询 -->
+    <select id="list" resultMap="resultMap">
+        select * from user u join dept d on u.did = d.did   
+    </select>
+    	
+    <!-- 根据ID进行查询 之后再修改-->
+    <select id="findById" resultType="User" parameterType="User">
+    	select * from User where id=#{id}
+    </select>   
+    
+    
+</mapper>
+

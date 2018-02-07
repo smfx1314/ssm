@@ -1,0 +1,5 @@
+0:0:0:0:0:0:0:1 - - [26/Jan/2018:21:15:02 +0800] "GET /maven_ssm_01/user/list.do HTTP/1.1" 404 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [26/Jan/2018:21:23:48 +0800] "GET /maven_ssm_01/user/list.do HTTP/1.1" 500 17214 http-bio-8080-exec-1 33770
+0:0:0:0:0:0:0:1 - - [26/Jan/2018:21:41:48 +0800] "GET /maven_ssm_01/ HTTP/1.1" 200 308 http-bio-8080-exec-1 448
+0:0:0:0:0:0:0:1 - - [26/Jan/2018:21:41:55 +0800] "GET /maven_ssm_01/user/list.do HTTP/1.1" 404 1017 http-bio-8080-exec-2 3991
+0:0:0:0:0:0:0:1 - - [26/Jan/2018:21:44:13 +0800] "GET /maven_ssm_01/user/list.do HTTP/1.1" 200 339 http-bio-8080-exec-1 3369

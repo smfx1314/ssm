@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.DeptMapper">
+
+	<!-- 定义resultMap -->
+	<resultMap type="com.ssm.entity.Dept" id="resultMap">
+		<id column="did" property="did"/>
+		<result column="dname" property="dname"/>
+		<!-- <collection property="user" ofType="com.ssm.entity.User">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+		</collection> -->
+	</resultMap>
+	
+	<!-- 查询所有部门 -->
+	<select id="deptList" resultMap="resultMap">
+		select * from dept
+	</select>
+	
+	<!-- 添加部门 -->
+	<insert id="addDept" parameterType="Dept">
+		<!-- <selectKey keyProperty="did" resultType="int" order="AFTER">
+			select last_insert_id() as id
+		</selectKey> -->
+		insert into dept(dname) values (#{dname}) 
+	</insert>
+	
+	<!-- 根据id查询部门 --> 
+	<select id="getById" parameterType="Dept" resultMap="resultMap">
+		select * from dept where did=#{did}
+	</select>
+	
+	<!-- 修改部门 --> 
+    <update id="updateDept" parameterType="Dept" >
+        update Dept set dname=#{dname} where did=#{did} 
+    </update>
+    
+    <!-- 根据id刪除部门-->
+	<delete id="deleteDept" parameterType="Integer">
+		delete from dept where did=#{did}
+	</delete>
+</mapper>
